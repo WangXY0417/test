@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="徽州幻游·时空对话 | 李坑博物馆奇遇 · 沉浸式徽派建筑史诗" />
+  <title>徽州幻游·时空对话 | 李坑 · 千载匠魂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ========== 完全保留原始样式，未做任何破坏性改动 ========== */
+    :root {
+      --gold: #d4af37;
+      --gold-dark: #b48c2c;
+      --gold-soft: rgba(212, 175, 55, 0.16);
+      --ancient-bg: #2a2418;
+      --paper: #fdf8ed;
+      --ink: #2c241a;
+      --ink-soft: #5e4b2b;
+      --card-bg: rgba(255, 250, 240, 0.94);
+      --line: rgba(212, 175, 55, 0.28);
+      --shadow-soft: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+      --shadow-deep: 0 25px 45px -8px rgba(0, 0, 0, 0.3);
+      --radius-xl: 2rem;
+      --radius-2xl: 2.5rem;
+      --transition: 220ms ease;
+      --max-width: 1300px;
+      --nav-offset: 100px;
+      --focus-ring: 0 0 0 3px rgba(212, 175, 55, 0.3);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', 'Noto Serif SC', serif;
+      background: linear-gradient(145deg, #f5efe5 0%, #e8dfcf 100%);
+      color: var(--ink);
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    button { font: inherit; cursor: pointer; }
+    a { color: inherit; }
+    :focus-visible { outline: none; box-shadow: var(--focus-ring); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; white-space: nowrap; border: 0; }
+    .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+    .particle { position: absolute; background: rgba(212, 175, 55, 0.22); border-radius: 50%; animation: floatParticle linear infinite; }
+    @keyframes floatParticle { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 20% { opacity: 0.5; } 80% { opacity: 0.28; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }
+    .story-container { position: relative; z-index: 2; max-width: var(--max-width); margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+    .nav-chapters {
+      position: sticky; top: 16px; z-index: 100; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+      width: fit-content; max-width: min(100%, 1100px); margin: 0 auto 2rem; padding: 0.7rem 1rem;
+      background: rgba(0, 0, 0, 0.62); border: 1px solid rgba(255, 243, 207, 0.15); backdrop-filter: blur(12px);
+      border-radius: 999px; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+    .nav-btn { border: none; background: transparent; color: #fff3cf; font-weight: 500; padding: 0.42rem 0.95rem; border-radius: 999px; font-size: 0.86rem; white-space: nowrap; transition: background var(--transition), color var(--transition), transform var(--transition); }
+    .nav-btn:hover, .nav-btn[aria-current="true"] { background: var(--gold); color: var(--ancient-bg); transform: translateY(-1px); }
+    .chapter-card { background: var(--card-bg); backdrop-filter: blur(4px); border: 1px solid var(--line); border-radius: var(--radius-2xl); box-shadow: var(--shadow-soft); padding: 2rem; margin-bottom: 2.5rem; transition: transform var(--transition), box-shadow var(--transition); scroll-margin-top: var(--nav-offset); content-visibility: auto; contain-intrinsic-size: 800px; }
+    .chapter-card:hover { transform: translateY(-4px); box-shadow: 0 26px 42px -16px rgba(0, 0, 0, 0.22); }
+    .chapter-title { display: flex; align-items: center; gap: 12px; margin: 0 0 1.2rem; padding-left: 1rem; border-left: 6px solid var(--gold); font-size: 1.8rem; font-weight: 700; line-height: 1.3; }
+    .chapter-title i { color: var(--gold); flex-shrink: 0; }
+    .stats-panel {
+      background: linear-gradient(135deg, #fff8ed, #fef3e0);
+      border-radius: 1.8rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0 2rem;
+      border: 1px solid var(--gold-soft);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 640px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .stat-card {
+      background: transparent !important;
+      border-radius: 1.2rem;
+      padding: 0.9rem;
+      text-align: center;
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: none !important;
+      border: none !important;
+    }
+    .stat-card:hover { transform: translateY(-3px); background: #fffef7; }
+    .stat-number {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--gold-dark);
+      line-height: 1.2;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+      margin-top: 0.3rem;
+    }
+    .stat-icon {
+      font-size: 1.5rem;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .chart-container {
+      width: 100%;
+      margin: 0.5rem 0;
+      min-height: 200px;
+    }
+    .pie-chart-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      min-height: 200px;
+    }
+    canvas#craftsChart, canvas#craftsPieChart {
+      max-width: 100%;
+      height: auto;
+      background: transparent;
+    }
+    .era-timeline-click {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 0.5rem;
+      margin: 2rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--gold-soft);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .timeline-btn {
+      background: transparent;
+      border: none;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--ink-soft);
+      border-radius: 2rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .timeline-btn:hover {
+      background: var(--gold-soft);
+      color: var(--gold-dark);
+    }
+    .timeline-btn.active {
+      background: var(--gold);
+      color: var(--ancient-bg);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+    .era-content-panel {
+      background: rgba(255, 250, 240, 0.7);
+      border-radius: 1.8rem;
+      padding: 1.8rem;
+      margin-top: 1rem;
+      border: 1px solid var(--gold-soft);
+      transition: 0.2s;
+      min-height: 320px;
+    }
+    .era-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .era-stat-item {
+      background: #fffef7;
+      border-radius: 1.2rem;
+      padding: 0.7rem 1rem;
+      flex: 1 1 160px;
+      text-align: center;
+      border-left: 3px solid var(--gold);
+    }
+    .era-stat-number {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--gold-dark);
+    }
+    .era-stat-label {
+      font-size: 0.75rem;
+      color: var(--ink-soft);
+    }
+    .era-feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .era-feature-card {
+      background: #fffaf0;
+      border-radius: 1.2rem;
+      padding: 1rem;
+      border: 1px solid #e9d6b0;
+    }
+    .era-feature-card h4 {
+      margin: 0 0 0.5rem;
+      color: var(--gold-dark);
+    }
+    .museum-showcase { position: relative; overflow: hidden; margin-bottom: 1.5rem; border-radius: var(--radius-xl); background: #222; box-shadow: var(--shadow-deep); }
+    .museum-slider { display: flex; height: 420px; transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1); will-change: transform; }
+    .slide { position: relative; min-width: 100%; display: flex; align-items: flex-end; padding: 2rem; background-size: cover; background-position: center; isolation: isolate; }
+    .slide::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.52)); z-index: -1; }
+    .slide-caption { max-width: 90%; padding: 0.85rem 1.4rem; border-radius: 999px; background: rgba(0, 0, 0, 0.62); backdrop-filter: blur(8px); color: #fff; font-size: 1rem; font-weight: 500; }
+    .museum-controls { position: absolute; right: 20px; bottom: 20px; z-index: 5; display: flex; gap: 12px; }
+    .ctrl-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(0, 0, 0, 0.58); color: var(--gold); font-size: 1.2rem; display: grid; place-items: center; transition: 0.2s; border: none; }
+    .ctrl-btn:hover { background: var(--gold); color: #111; }
+    .soul-trigger-btn, .step-btn, .detail-button { border: none; transition: background var(--transition), transform var(--transition); }
+    .soul-trigger-btn { display: inline-flex; align-items: center; gap: 10px; margin-top: 1rem; padding: 0.8rem 1.4rem; border-radius: 999px; background: var(--gold); font-weight: 700; box-shadow: 0 10px 22px -12px rgba(180, 140, 44, 0.7); text-decoration: none; }
+    .horse-wall-spotlight { padding: 1.5rem; margin: 1.8rem 0; background: linear-gradient(135deg, #fff0db, #ffe2c1); border: 2px solid var(--gold); border-radius: 2rem; }
+    .dialogue-step-panel { display: none; margin-top: 1.8rem; padding: 1.5rem; background: #fff7ea; border-left: 8px solid var(--gold); border-radius: 1.8rem; box-shadow: var(--shadow-soft); }
+    .dialogue-step-panel.active { display: block; }
+    .anime-characters { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .character-card { flex: 1; min-width: 150px; padding: 0.9rem; text-align: center; background: rgba(212, 175, 55, 0.1); border-radius: 1.6rem; transition: transform var(--transition), background var(--transition); }
+    .character-card.active-speaker { background: rgba(212, 175, 55, 0.26); box-shadow: 0 0 0 3px var(--gold); transform: scale(1.02); }
+    .character-avatar { position: relative; font-size: 3.5rem; filter: drop-shadow(2px 4px 8px rgba(0, 0, 0, 0.18)); }
+    .voice-wave { position: absolute; right: -16px; top: 8px; display: inline-flex; gap: 3px; }
+    .voice-wave span { width: 4px; background: var(--gold); border-radius: 999px; animation: wave 0.8s infinite alternate; }
+    .voice-wave span:nth-child(1) { height: 8px; } .voice-wave span:nth-child(2) { height: 12px; animation-delay: 0.2s; } .voice-wave span:nth-child(3) { height: 6px; animation-delay: 0.4s; }
+    @keyframes wave { from { transform: scaleY(0.55); } to { transform: scaleY(1.4); } }
+    .dialogue-bubble { min-height: 100px; margin: 0.5rem 0 1rem; padding: 1.2rem 1.4rem; background: #fff; border-radius: 1.6rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); font-size: 1.04rem; }
+    .dialogue-control { display: flex; justify-content: flex-end; gap: 12px; margin-top: 1rem; }
+    .step-btn { padding: 0.6rem 1rem; border-radius: 999px; background: var(--gold); font-weight: 600; }
+    .step-btn.next-btn { background: #6f4e2e; color: #fff; }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.4rem;
+    }
+    @media (max-width: 900px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .feature-detail {
+      padding: 1.5rem;
+      background: #fffaf0;
+      border: 1px solid #e9d6b0;
+      border-radius: 1.6rem;
+    }
+    .feature-detail img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 1rem;
+      margin: 0.5rem 0 1rem;
+    }
+    .product { padding: 1rem; text-align: center; background: #fffaf0; border-radius: 1.2rem; border: 1px solid #e9d6b0; }
+    .product-img { width: 100%; height: 110px; object-fit: cover; border-radius: 1rem; margin-bottom: 0.8rem; }
+    .cultural-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 1rem; }
+    .timeline-grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 1rem 0; }
+    .timeline-item { border-radius: 1.2rem; padding: 1.2rem; background: rgba(255, 255, 240, 0.78); border: 1px solid #e9d6b0; cursor: pointer; transition: transform 0.2s, background 0.2s; }
+    .timeline-item:hover { background: rgba(255, 245, 215, 0.96); border-color: var(--gold); transform: translateY(-4px); }
+    .toast { position: fixed; left: 50%; bottom: 30px; z-index: 999; transform: translateX(-50%) translateY(10px); padding: 12px 24px; border-radius: 999px; background: rgba(0, 0, 0, 0.84); color: #ffefc0; opacity: 0; transition: opacity 0.2s, transform 0.2s; backdrop-filter: blur(8px); pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .detail-dialog {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      margin: 0 !important;
+      border: none;
+      border-radius: 0;
+      overflow: hidden;
+      box-shadow: none;
+    }
+    .detail-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(6px);
+    }
+    .detail-shell {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background: linear-gradient(145deg, #f5efe5 0%, #e8dfcf 100%);
+    }
+    .detail-body {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .wordcloud-canvas-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 0.8rem 0 1.2rem;
+    }
+    #huiWordCloudCanvas {
+      width: 100%;
+      max-width: 760px;
+      height: auto;
+      aspect-ratio: 760 / 480;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(180, 140, 44, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      background: #fcf7ef;
+      display: block;
+      border-radius: 16px;
+      transition: box-shadow 0.3s;
+    }
+    footer { padding: 2rem; text-align: center; color: var(--ink-soft); border-top: 1px dashed rgba(212, 175, 55, 0.4); }
+    @media (max-width: 820px) { .chapter-card { padding: 1.35rem; } .museum-slider { height: 320px; } }
+
+    /* 新图表页面样式（内嵌整合） */
+    .particles-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .data-detail-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      padding: 0;
+    }
+    .hero-header {
+      margin-bottom: 2.5rem;
+      background: rgba(30, 25, 18, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 1.2rem 2rem;
+      border: 1px solid rgba(212, 175, 55, 0.6);
+      box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s;
+    }
+    .title-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .main-title h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      font-family: 'Noto Serif SC', serif;
+      background: linear-gradient(135deg, #f7e6b0, #d4af37, #b8860b);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: 2px;
+      margin-bottom: 0.4rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .main-title .sub {
+      font-size: 0.85rem;
+      color: #ffefcf;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.45rem 1.2rem;
+      border-radius: 60px;
+      width: fit-content;
+      backdrop-filter: blur(4px);
+      font-weight: 500;
+    }
+    .main-title .sub span i {
+      margin-right: 6px;
+      color: #ffd966;
+    }
+    .back-btn-wrapper {
+      flex-shrink: 0;
+    }
+    .btn-back-main {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.75);
+      padding: 0.6rem 1.8rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #fff3cf;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    }
+    .btn-back-main i {
+      font-size: 0.9rem;
+      color: #d4af37;
+    }
+    .btn-back-main:hover {
+      background: #d4af37;
+      color: #2a2418;
+      border-color: #d4af37;
+      transform: translateY(-2px);
+    }
+    .btn-back-main:hover i {
+      color: #2a2418;
+    }
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin: 2rem 0 2rem;
+    }
+    .chart-card {
+      background: rgba(255, 250, 240, 0.94);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      border-radius: 2rem;
+      box-shadow: 0 25px 40px -16px rgba(0, 0, 0, 0.2);
+      padding: 1.5rem 1.5rem 1.8rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .chart-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 45px -18px rgba(0, 0, 0, 0.25);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 5px solid #d4af37;
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .card-header i {
+      font-size: 1.6rem;
+      color: #b48c2c;
+    }
+    .card-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: #2c241a;
+    }
+    .chart-wrapper {
+      position: relative;
+      width: 100%;
+      margin: 0.2rem 0 0.2rem;
+      min-height: 320px;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+      background: transparent;
+    }
+    .data-note {
+      margin-top: 1.2rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.45);
+      font-size: 0.8rem;
+      color: #4a3a24;
+      line-height: 1.5;
+      background: rgba(245, 235, 215, 0.5);
+      border-radius: 1.2rem;
+      padding: 0.8rem 1rem;
+    }
+    .data-note i {
+      color: #d4af37;
+      width: 1.6rem;
+      font-size: 0.9rem;
+    }
+    .source-footer {
+      margin-top: 2rem;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.12);
+      border-radius: 1.2rem;
+      padding: 0.8rem;
+      font-size: 0.75rem;
+      color: #5e4b2b;
+    }
+    @media (max-width: 1000px) {
+      .insight-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .data-detail-container {
+        padding: 1rem;
+      }
+      .main-title h1 {
+        font-size: 1.5rem;
+      }
+      .card-header h2 {
+        font-size: 1.1rem;
+      }
+      .chart-card {
+        padding: 1rem;
+      }
+      .hero-header {
+        padding: 0.8rem 1rem;
+      }
+    }
+    .toast-msg {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f1b12e6;
+      backdrop-filter: blur(12px);
+      color: #ffefc0;
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+  </style>
+</head>
+<body>
+<div class="particles" id="particles" aria-hidden="true"></div>
+<main class="story-container">
+  <nav class="nav-chapters" id="navMenu">
+    <button class="nav-btn" data-chapter="museum" aria-current="true">🏛️ 博物馆奇遇</button>
+    <button class="nav-btn" data-chapter="soul">💫 前世今生</button>
+    <button class="nav-btn" data-chapter="evolution">📜 徽派千年·演进史</button>
+    <button class="nav-btn" data-chapter="ming2">🌟 明末清初·鼎盛</button>
+    <button class="nav-btn" data-chapter="modern">🔮 今世·活化创新</button>
+  </nav>
+
+  <section id="chapter-museum" class="chapter-card">
+    <h2 class="chapter-title"><i class="fas fa-landmark"></i> 第一章 · 李坑博物馆 · 时空序章</h2>
+    <p>清晨，建筑系大学生 <strong>林徽衍</strong> 踏入李坑徽派建筑数字博物馆，VR全息影像与古建残片交织……</p>
+    <div class="museum-showcase">
+      <div class="museum-slider" id="museumSlider">
+        <div class="slide" style="background-image:url('https://s41.ax1x.com/2026/04/23/peRYDFH.png');"><div class="slide-caption"></div></div>
+<div class="slide" style="background-image:url('https://s41.ax1x.com/2026/04/23/peRYwwD.png');"><div class="slide-caption"></div></div>
+<div class="slide" style="background-image:url('https://s41.ax1x.com/2026/04/23/peRYdeO.png');"><div class="slide-caption"></div></div>
+<div class="slide" style="background-image:url('https://s41.ax1x.com/2026/04/23/peRY0Te.png');"><div class="slide-caption"></div></div>      </div>
+      <div class="museum-controls"><button class="ctrl-btn" id="prevSlide"><i class="fas fa-chevron-left"></i></button><button class="ctrl-btn" id="nextSlide"><i class="fas fa-chevron-right"></i></button></div>
+    </div>
+    <div class="horse-wall-spotlight"><h3><i class="fas fa-chess-rook"></i> 马头墙 · 徽派之魂</h3><p>高低错落的封火墙，形似马头。它不仅是古代消防智慧的结晶，更象征家族“五岳朝天”的志向。展柜中有一块北宋青砖，隐约匠人手痕……</p><button class="soul-trigger-btn" id="soulTriggerBtn"><i class="fas fa-hand-sparkles"></i> 触碰残砖 · 唤醒千年匠魂</button></div>
+    <div id="stepDialoguePanel" class="dialogue-step-panel"><div class="anime-characters"><div class="character-card" id="charStudent"><div class="character-avatar"><i class="fas fa-user-graduate"></i></div><div><strong>林徽衍</strong><br><span style="font-size:0.75rem;">当代大学生</span></div></div><div class="character-card" id="charCraftsman"><div class="character-avatar"><i class="fas fa-hard-hat"></i></div><div><strong>墨斗</strong><br><span style="font-size:0.75rem;">北宋瓦匠</span></div></div></div><div class="dialogue-bubble"><span id="dialogueText"></span><span class="typing-cursor"></span></div><div class="dialogue-control"><button class="step-btn" id="prevStepBtn" disabled>◀ 上一句</button><button class="step-btn next-btn" id="nextStepBtn">下一句 ▶</button></div></div>
+
+    <div class="stats-panel" style="margin: 2rem 0 1rem;">
+      <h4 style="margin: 0 0 1.2rem 0; font-weight: 700; color: var(--gold-dark);"><i class="fas fa-village"></i> 李坑 · 徽州基因</h4>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-map-marker-alt"></i></div><div class="stat-number">江西婺源</div><div class="stat-label">国家4A景区·千年古村</div></div>
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-building"></i></div><div class="stat-number">11处</div><div class="stat-label">县/市级文保单位</div></div>
+        <div class="stat-card"><div class="stat-icon"><i class="fas fa-graduation-cap"></i></div><div class="stat-number">18位进士 / 武状元</div><div class="stat-label">仕宦百人·文风昌盛</div></div>
+      </div>
+      <p style="font-size: 0.75rem; margin-top: 0.8rem; text-align: center; color: #7a6233;"><i class="fas fa-book-open"></i> 自宋至清，村民传世著作29部 | 观光小火车贯通 · 传统与未来共生</p>
+      <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.2rem; flex-wrap: wrap;">
+        <a href="data-labour-arch.html" target="_blank" class="soul-trigger-btn">
+          <i class="fas fa-chart-pie"></i> 劳动力·建筑数据详情
+        </a>
+        <a href="data-trend.html" target="_blank" class="soul-trigger-btn">
+          <i class="fas fa-chart-line"></i> 人口·游客·耕地年鉴
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="chapter-soul" class="chapter-card"><h2 class="chapter-title"><i class="fas fa-handshake"></i> 第二章 · 灵魂契约 · 同游千年</h2><div class="dialogue-area"><p><strong>墨斗（北宋瓦匠）</strong>：“后生，你我既已相认，便随我走一遭——看理田村如何从荒丘变阡陌，看徽商如何将粉墙黛瓦传遍天下！”</p><p><strong>林徽衍</strong>：“前辈，我愿同往！请您为我讲述每一块砖、每一片瓦背后的故事。”</p></div></section>
+
+  <section id="chapter-evolution" class="chapter-card"><h2 class="chapter-title"><i class="fas fa-history"></i> 第三章 · 徽派千年演进 · 北宋至民国</h2><p>墨斗携林徽衍溯时间之河，从开基建村到民国沧桑。点击下方时间轴，细读每个朝代的建筑华章。</p><div class="era-timeline-click" id="eraTimelineClick"><button class="timeline-btn" data-era="beisong">北宋 (960-1127)</button><button class="timeline-btn" data-era="nansong">南宋 (1127-1279)</button><button class="timeline-btn" data-era="yuan">宋元 (13-14世纪)</button><button class="timeline-btn" data-era="mingzhong">明中期 (15-16世纪)</button><button class="timeline-btn" data-era="qing">清代 (1636-1912)</button><button class="timeline-btn" data-era="minguo">民国 (1912-1949)</button></div><div id="eraContentPanel" class="era-content-panel"></div><div class="dialogue-area" style="margin-top: 2rem;"><div class="dialogue-speaker"><i class="fas fa-hard-hat"></i> 墨斗 · 追忆</div><div class="dialogue-text" id="masterDialogue"></div></div></section>
+
+  <section id="chapter-ming2" class="chapter-card">
+    <h2 class="chapter-title"><i class="fas fa-trophy"></i> 第四章 · 明末清初 · 徽商鼎盛 · 三雕宗师李老匠</h2>
+    <p>明末清初，徽商财力达到顶峰，商贾巨富返乡不惜千金聘匠人。木雕宗师 <strong>李老匠</strong> 执刀一生，将“三雕”技艺推向极致。</p>
+    <div class="timeline-grid">
+      <div class="timeline-item" data-page="six-features">
+        <i class="fas fa-palette"></i>
+        <h3>徽派建筑六大特色</h3>
+        <p>马头墙、砖雕、木雕、石雕、天井、水圳，一览徽派建筑核心精髓</p>
+        <small>点击详情</small>
+      </div>
+    </div>
+
+    <!-- ========== 已替换：双轴复合图表数据面板 ========== -->
+    <div class="data-detail-container">
+      <div class="hero-header">
+        <div class="title-section">
+          <div class="main-title">
+            <h1>徽派建筑 · 时空演进</h1>
+            <div class="sub">
+              <span><i class="fas fa-chart-line"></i> 时间刻痕 · 数据交响 | 2010–2024 徽派遗产演进年鉴</span>
+              <span><i class="fas fa-archway"></i> 黄山市 · 保护历程数字档案</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-grid">
+        <div class="chart-card">
+          <div class="card-header">
+            <i class="fas fa-building"></i>
+            <h2>古建家底 · 存量与法定保护</h2>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="compositeChart1" width="700" height="350"></canvas>
+          </div>
+          <div class="data-note">
+            <p><i class="fas fa-chart-simple"></i> <strong>柱状图（左轴）</strong>：黄山市域现存徽派古建（处），从2010年2.2万处增至2024年3万余处，普查与认定工作持续推进。<br>
+            <i class="fas fa-chart-line"></i> <strong>折线图（右轴）</strong>：历史建筑（处），自2012年全面普查后快速攀升，2024年达4103处，涵盖大量未定级珍贵遗存。<br>
+            <i class="fas fa-database"></i> 数据来源：黄山市住建局《徽派建筑保护利用白皮书》历年统计、黄山市人民政府历史建筑名录。</p>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="card-header">
+            <i class="fas fa-cube"></i>
+            <h2>数字赋能 · 村落集群保护</h2>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="compositeChart2" width="700" height="350"></canvas>
+          </div>
+          <div class="data-note">
+            <p><i class="fas fa-chart-simple"></i> <strong>柱状图（左轴）</strong>：完整三维数据模型（栋），2016年数字化工程启动，至2024年完成1997栋高精度存档。<br>
+            <i class="fas fa-chart-line"></i> <strong>折线图（右轴，橙色）</strong>：中国传统村落（个），黄山市凭借六批名录累积310个，居全国地级市前列。<br>
+            <i class="fas fa-chart-line"></i> <strong>折线图（右轴，深红色）</strong>：国家级名城/名镇/名村（个），总数达27个，构建多层次保护体系。<br>
+            <i class="fas fa-leaf"></i> 来源：住建部传统村落名录、黄山市数字化工程年度报告、住建部&文物局名城名镇名村名单。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="source-footer">
+        <i class="fas fa-database"></i> 综合数据来源：黄山市住房和城乡建设局《徽派建筑保护利用白皮书(2024)》、安徽省文物局古建普查报告、黄山市人民政府历史建筑名录、住建部前六批《中国传统村落名录》及国家级名镇名村名单、黄山市“徽州古建数字化工程”成果报告。2010–2024年数值基于官方历年公布节点与普查批次科学整合，真实反映演进趋势。
+      </div>
+    </div>
+    <!-- ========== 替换结束 ========== -->
+
+    <div class="dialogue-area">
+      <div class="dialogue-speaker"><i class="fas fa-hard-hat"></i> 李老匠 · 匠心独白</div>
+      <div class="dialogue-text">“吾一生刻刀不辍，木雕、砖雕、石雕，皆是李氏血脉。每刻一刀，须静心半日，观木理、察石性。当年为宗祠刻‘百忍图’，历时三年，废刀三十把。今日后人若能识得其中故事，吾愿足矣。”</div>
+    </div>
+    <div style="margin-top: 1.8rem; background: #fffaf0; border-radius: 1.6rem; padding: 1.2rem;">
+      <h4><i class="fas fa-hand-sparkles"></i> 薪火相传 · 三雕非遗</h4>
+      <p>如今，李坑三雕技艺被列入国家级非物质文化遗产。传承人沿用古法，选用徽州特有的“黟县青”石、“徽州红”木，以“九雕十三工”流程恢复传统纹样。每年举办的“三雕节”吸引海内外匠人切磋，李老匠的故事被编入当地中小学乡土教材。</p>
+    </div>
+  </section>
+
+  <!-- 🔴 第五章：今世传承 · 优化后双图表布局 -->
+  <section id="chapter-modern" class="chapter-card">
+    <h2 class="chapter-title"><i class="fas fa-vr-cardboard"></i> 第五章 · 今世传承 · 守形与守魂</h2>
+    <div class="timeline-grid">
+      <div class="timeline-item" data-page="vr-ar"><i class="fas fa-robot"></i><h3>VR/AR 沉浸复原</h3><p>数字孪生技术复原北宋李坑，古村肌理数字化重生。</p><small>点击详情</small></div>
+      <div class="timeline-item" data-page="old-house"><i class="fas fa-home"></i><h3>老宅改造·非遗活化</h3><p>古建活化为民宿、三雕体验馆，带动村民增收。</p><small>点击详情</small></div>
+      <div class="timeline-item" data-page="cultural-creative"><i class="fas fa-palette"></i><h3>文创衍生设计</h3><p>瓦当纹样开发书签、丝巾，徽派美学新潮品。</p><small>点击详情</small></div>
+    </div>
+    <div class="conflict-dialogue" style="margin:1rem 0; padding:1rem 1.1rem; background:#fff3e0; border-left:6px solid #c9772e;"><p><strong>🔨 修复师小李</strong>：“老村长，这面马头墙倾斜了，必须落架重修，但我会用原砖原瓦。”</p><p><strong>👴 老村长</strong>：“一动不如一静！修旧如旧！”</p><p><strong>🔨 修复师小李</strong>：“守形更要守魂。墙歪了会塌，我用传统榫卯加固，形不变，魂更固。”</p><p><strong>👴 老村长</strong>：“……好，就依你。每一块瓦当都要编号。”</p></div>
+    <div class="cultural-grid">
+  <!-- 瓦当纹书签 -->
+  <div class="product">
+    <img class="product-img" loading="lazy" 
+         src="https://cdn.phototourl.com/free/2026-04-23-682d737e-34b6-4524-bebb-886eee167860.jpg "  
+         alt="瓦当纹书签">
+    <i class="fas fa-bookmark"></i>
+    <h4>瓦当纹书签</h4>
+  </div>
+  
+  <!-- 马头墙T恤 -->
+  <div class="product">
+    <img class="product-img" loading="lazy" 
+         src="https://cdn.phototourl.com/free/2026-04-23-26ff05f0-2ac2-4e07-95bf-b0eeb976b7b8.png "  
+         alt="马头墙T恤">
+    <i class="fas fa-tshirt"></i>
+    <h4>马头墙T恤</h4>
+  </div>
+  
+  <!-- 三雕咖啡杯 -->
+  <div class="product">
+    <img class="product-img" loading="lazy" 
+         src="https://s41.ax1x.com/2026/04/23/peRYsfA.jpg "     
+         alt="三雕咖啡杯">
+    <i class="fas fa-mug-hot"></i>
+    <h4>三雕咖啡杯</h4>
+  </div>
+  
+  <!-- 徽墨团扇 -->
+  <div class="product">
+    <img class="product-img" loading="lazy" 
+         src="https://s41.ax1x.com/2026/04/23/peRYUOK.jpg "     
+         alt="徽墨团扇">
+    <i class="fas fa-fan"></i>
+    <h4>徽墨团扇</h4>
+  </div>
+</div>
+    <!-- ✅ 优化：双图表左右并排布局 -->
+    <div class="stats-panel" style="margin: 2rem 0;">
+      <h4 style="margin: 0 0 1.5rem 0; font-weight: 700; color: var(--gold-dark);"><i class="fas fa-chart-line"></i> 徽派建筑·今世传承数据可视化（2015-2024）</h4>
+      <div class="insight-grid" style="gap:1.5rem; margin:0;">
+        <!-- 图表1：非遗传承人数量趋势 -->
+        <div class="chart-card" style="padding:1rem; margin:0;">
+          <div class="card-header">
+            <i class="fas fa-user-tie"></i>
+            <h2>非遗传承人数量</h2>
+          </div>
+          <div class="chart-wrapper" style="min-height:240px;">
+            <canvas id="inheritanceChart"></canvas>
+          </div>
+          <div class="data-note">
+            <p><i class="fas fa-info-circle"></i> 国家级/省级/市级三雕非遗传承人逐年增长，2024年总数突破120人，年轻传承人占比达35%</p>
+          </div>
+        </div>
+        <!-- 图表2：文创产业营收 -->
+        <div class="chart-card" style="padding:1rem; margin:0;">
+          <div class="card-header">
+            <i class="fas fa-wallet"></i>
+            <h2>徽派文创年收入（万元）</h2>
+          </div>
+          <div class="chart-wrapper" style="min-height:240px;">
+            <canvas id="culturalChart"></canvas>
+          </div>
+          <div class="data-note">
+            <p><i class="fas fa-info-circle"></i> 文创产品年收入突破4800万元，带动村民人均增收1.2万元，非遗经济成为核心支柱</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialogue-area">
+      <div class="dialogue-speaker"><i class="fas fa-user-graduate"></i> 林徽衍</div>
+      <div class="dialogue-text">“墨斗前辈，您看——我们用现代科技与创意设计，让您的木作、砖瓦不再沉寂，而是活在了年轻人的镜头里、文创中。徽派建筑的灵魂，从未离开。”</div>
+      <div class="dialogue-speaker"><i class="fas fa-hard-hat"></i> 墨斗</div>
+      <div class="dialogue-text">“妙哉！匠艺不灭，文脉永存！徽衍，你便是吾之来世，薪火相传，善哉善哉。”</div>
+    </div>
+    <div style="text-align:center; margin-top:2rem;"><button class="soul-trigger-btn" id="resetJourneyBtn"><i class="fas fa-sync-alt"></i> 重启时空旅程</button></div>
+  </section>
+
+  <footer><i class="fas fa-archway"></i> 时空旅人·徽州幻游 | 完整徽派建筑千年史诗</footer>
+</main>
+<dialog id="detailDialog" class="detail-dialog"><div class="detail-shell"><div class="detail-header" style="display:flex;justify-content:space-between;padding:1rem 1.5rem;background:#d9cba3;"><h2 id="detailTitle" style="margin:0">详情</h2><button class="detail-button" id="closeDetailBtn" style="background:#b48c2c;color:white;border-radius:2rem;padding:0.3rem 1rem;">关闭</button></div><div class="detail-body" id="detailBody"></div></div></dialog>
+<div class="sr-only" id="liveRegion" aria-live="polite"></div>
+<div id="toastMsg" class="toast-msg"></div>
+
+<script>
+  (function(){
+    'use strict';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const TYPING_SPEED = 28;
+    const AUTO_SLIDE_INTERVAL = 4500;
+    const TOAST_DURATION = 2600;
+
+    // 词云词库（徽州建筑关键词）
+    const wordCloudTerms = [
+      '粉墙黛瓦', '马头墙', '砖雕', '木雕', '石雕', '天井', '四水归堂', '冬瓜梁', '雀替',
+      '斗拱', '门楼', '照壁', '月梁', '挂落', '美人靠', '水圳', '牌坊', '祠堂', '社屋',
+      '徽商', '新安', '歙砚', '徽墨', '黟县青', '婺源', '李坑', '理田', '鱼形村',
+      '五岳朝天', '肥水不流外人田', '三雕绝艺', '九层镂空', '百忍图', '榫卯', '瓦当',
+      '滴水', '飞檐', '翘角', '回廊', '曲径', '漏窗', '花窗', '影壁', '庭院深深',
+      '书香门第', '耕读传家', '贾而好儒', '程朱阙里', '东南邹鲁', '山墙', '封火墙',
+      '青砖小瓦', '石板路', '小桥流水', '古樟', '水口', '徽骆驼', '无徽不成镇',
+      '黄山白岳', '新安画派', '徽剧', '目连戏'
+    ];
+
+    let craftsChart = null;
+    let craftsPieChart = null;
+
+    const eraContents = {
+      beisong: { title:"🏯 北宋 · 开基立村 (960-1127)", desc:"北宋建村先祖李洞观山水，定“鱼形吉地”，沿溪建房，粉墙黛瓦，天井纳水。", stats:[{label:"鱼形村落布局",value:"Y形溪流"}], features:[{name:"🐟 鱼形村落",desc:"依溪流呈Y形展开"}], dialogue:"“当年李洞先祖带我们观溪流走向，言‘背山面水，鱼形吉地’。自此粉墙黛瓦、天井四水，徽派之根便种下了。”" },
+      nansong:{ title:"⚔️ 南宋 · 武状元与马头墙", desc:"南宋武状元李知诚回乡建宅，将马头墙加高至五叠，兼具防火与瞭望防御。", stats:[{label:"马头墙叠数",value:"五岳朝天"}], features:[{name:"🏔️ 马头墙·防御",desc:"加高墙体，可远眺敌情"}], dialogue:"“李知诚是吾族骄傲，他重建宅第时特意加高马头墙，文武之道，尽在粉墙黛瓦之间。”" },
+      yuan:{ title:"🪶 宋元过渡", desc:"南宋移民潮带来中原工匠，穿斗式与抬梁式融合，砖雕浅浮雕萌芽。", stats:[{label:"移民潮影响",value:"中原工匠南迁"}], features:[{name:"🏗️ 穿斗抬梁融合",desc:"梁架更稳固"}], dialogue:"“南北匠人共聚一堂，北方官式与南方精雕相融，水口古樟便是那时所植。”" },
+      mingzhong:{ title:"📈 明中期 · 徽商萌芽", desc:"成化弘治年间，徽州人开始大规模经营盐业、茶业、木业，积累第一桶金。", stats:[{label:"盐茶贸易",value:"扬州、苏州设会馆"}], features:[{name:"🏠 民居改进",desc:"天井扩大"}], dialogue:"“徽商腰缠万贯，返乡大兴土木，粉墙黛瓦间多了雕饰，宗祠书院拔地而起。”" },
+      qing:{ title:"🏆 清代 · 技艺巅峰", desc:"清代康乾盛世，徽州三雕（砖、木、石雕）分工明确，技法炉火纯青。", stats:[{label:"三雕体系",value:"砖雕/木雕/石雕"}], features:[{name:"🪵 木雕月梁",desc:"连环套雕"}], dialogue:"“清代匠人将三雕推向极致，无宅不雕，无梁不花。李老匠一把刻刀，能刻出九重世界。”" },
+      minguo:{ title:"📜 民国 · 沧桑与守护", desc:"晚清民国时期，徽商衰落，战乱频仍，古建蒙尘，但乡绅自发保护宗祠牌坊。", stats:[{label:"徽商衰落",value:"近代交通改变"}], features:[{name:"🏺 瓦当老青",desc:"一片北宋瓦当历经千年"}], dialogue:"“我是一片李坑的瓦，从北宋烧到今天。裂痕刻在我身上，也刻在徽派的记忆里。”" }
+    };
+    function renderEra(eraId){ let d=eraContents[eraId]; if(!d) return; document.getElementById('eraContentPanel').innerHTML=`<h3 style="color:var(--gold-dark);">${d.title}</h3><p>${d.desc}</p><div class="era-stats">${d.stats.map(s=>`<div class="era-stat-item"><div class="era-stat-number">${s.value}</div><div class="era-stat-label">${s.label}</div></div>`).join('')}</div><div class="era-feature-grid">${d.features.map(f=>`<div class="era-feature-card"><h4>${f.name}</h4><p>${f.desc}</p></div>`).join('')}</div>`; document.getElementById('masterDialogue').textContent=d.dialogue; document.querySelectorAll('#eraTimelineClick .timeline-btn').forEach(btn=>{if(btn.dataset.era===eraId) btn.classList.add('active'); else btn.classList.remove('active');});}
+    document.querySelectorAll('#eraTimelineClick .timeline-btn').forEach(btn=>btn.addEventListener('click',()=>renderEra(btn.dataset.era))); renderEra('beisong');
+
+    // 重新初始化柱状图 & 饼图（保证可见）
+    function resetAndInitCharts() {
+      if (craftsChart) { craftsChart.destroy(); craftsChart = null; }
+      if (craftsPieChart) { craftsPieChart.destroy(); craftsPieChart = null; }
+      const barCanvas = document.getElementById('craftsChart');
+      const pieCanvas = document.getElementById('craftsPieChart');
+      if (!barCanvas || !pieCanvas) return;
+      // 强制设置canvas实际像素尺寸，避免Chart.js渲染空白
+      barCanvas.width = 500;
+      barCanvas.height = 240;
+      pieCanvas.width = 260;
+      pieCanvas.height = 260;
+      barCanvas.style.width = '100%';
+      barCanvas.style.height = 'auto';
+      pieCanvas.style.width = '100%';
+      pieCanvas.style.height = 'auto';
+
+      craftsChart = new Chart(barCanvas.getContext('2d'), {
+        type: 'bar',
+        data: { labels: ['简易木雕', '精品木雕', '砖雕门楼', '石雕柱础'], datasets: [{ label: '工时(天)', data: [7, 90, 180, 45], backgroundColor: '#d4af37', borderRadius: 8 }] },
+        options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } } }
+      });
+      craftsPieChart = new Chart(pieCanvas.getContext('2d'), {
+        type: 'doughnut',
+        data: { labels: ['木雕', '砖雕', '石雕', '彩绘'], datasets: [{ data: [45, 30, 20, 5], backgroundColor: ['#d4af37', '#b48c2c', '#e8c468', '#a67c00'], borderWidth: 0 }] },
+        options: { responsive: true, maintainAspectRatio: true, cutout: '50%', plugins: { legend: { position: 'bottom' } } }
+      });
+    }
+
+// 【重绘优化版】徽州古风词云 · 适配徽派色调、重点词汇放大、布局更舒适
+function drawBeautifulWordCloud(canvas) {
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = 780, h = 500;
+  canvas.width = w;
+  canvas.height = h;
+
+  // 1. 古风宣纸渐变背景
+  const bgGradient = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, w);
+  bgGradient.addColorStop(0, '#fff9ee');
+  bgGradient.addColorStop(1, '#f3e9d8');
+  ctx.fillStyle = bgGradient;
+  ctx.fillRect(0, 0, w, h);
+
+  // 2. 浅淡水墨远山纹理装饰
+  ctx.save();
+  ctx.globalAlpha = 0.08;
+  ctx.fillStyle = '#4a3a24';
+  ctx.beginPath();
+  ctx.moveTo(0, h - 60);
+  ctx.bezierCurveTo(w*0.25, h-120, w*0.55, h-80, w*0.75, h-110);
+  ctx.bezierCurveTo(w*0.9, h-130, w, h-90, w, h-70);
+  ctx.lineTo(w, h);
+  ctx.lineTo(0, h);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+
+  // 3. 字体 & 国风配色
+  const fontList = '"Noto Serif SC", "楷体", "宋体", serif';
+  const ancientColorPool = [
+    '#2c241a', '#423524', '#5e4b2b', '#705535',
+    '#8c6d31', '#a0783c', '#b48c2c', '#916b26'
+  ];
+
+  // 4. 词汇权重分级：核心建筑词超大、非遗词汇中等、普通词汇偏小
+  const highWeight = ['马头墙','粉墙黛瓦','三雕绝艺','天井','四水归堂','榫卯'];
+  const midWeight = ['砖雕','木雕','石雕','冬瓜梁','雀替','水圳','徽商','黟县青'];
+  let termsWithWeight = wordCloudTerms.map(term => {
+    let weight = 1.0;
+    if(highWeight.includes(term)) weight += 1.2;
+    else if(midWeight.includes(term)) weight += 0.6;
+    else weight += Math.random() * 0.4;
+    return { text: term, weight };
+  });
+
+  // 权重倒序，大词优先排布
+  termsWithWeight.sort((a,b) => b.weight - a.weight);
+
+  const placed = [];
+  const centerX = w / 2;
+  const centerY = h / 2;
+
+  // 5. 螺旋发散布局，减少重叠，排版更自然
+  for (let item of termsWithWeight) {
+    // 字号区间：核心大词 24~52，普通词 16~28
+    let fontSize = Math.min(52, Math.max(16, 16 + item.weight * 14));
+    ctx.font = `700 ${fontSize}px ${fontList}`;
+    const textMetrics = ctx.measureText(item.text);
+    const textW = textMetrics.width;
+    const textH = fontSize * 1.15;
+
+    let isPlaced = false;
+    let angle = 0;
+    let radius = 0;
+    // 螺旋寻位
+    for (let i = 0; i < 1600; i++) {
+      angle += 0.22;
+      radius += 1.8;
+      let x = centerX + Math.cos(angle) * radius;
+      let y = centerY + Math.sin(angle) * radius * 0.75;
+
+      // 边界限制
+      if(x < 20 || x > w-20 || y < 35 || y > h-35) continue;
+
+      // 碰撞检测
+      let overlap = false;
+      for(let p of placed){
+        if (Math.abs(x - p.x) < (textW/2 + p.w/2 + 6) &&
+            Math.abs(y - p.y) < (textH/2 + p.h/2 + 6)) {
+          overlap = true;
+          break;
+        }
+      }
+
+      if(!overlap){
+        placed.push({ x, y, w:textW, h:textH, text:item.text, fs:fontSize });
+        isPlaced = true;
+        break;
+      }
+    }
+    // 兜底随机放置
+    if(!isPlaced){
+      placed.push({
+        x: 40 + Math.random()*(w-80),
+        y: 40 + Math.random()*(h-80),
+        w:textW, h:textH, text:item.text, fs:fontSize
+      });
+    }
+  }
+
+  // 6. 绘制文字 + 柔和投影，国风质感
+  ctx.shadowColor = 'rgba(90,75,45,0.15)';
+  ctx.shadowBlur = 4;
+  placed.forEach((item, idx) => {
+    ctx.font = `700 ${item.fs}px ${fontList}`;
+    ctx.fillStyle = ancientColorPool[idx % ancientColorPool.length];
+    ctx.fillText(item.text, item.x - item.w/2, item.y + item.fs/3);
+  });
+  ctx.shadowBlur = 0;
+
+  // 7. 右下角古风落款印章
+  ctx.globalAlpha = 0.55;
+  ctx.fillStyle = '#b48c2c';
+  ctx.font = '22px 楷体';
+  ctx.fillText('徽州匠魂', w - 90, h - 28);
+  ctx.globalAlpha = 1;
+}
+    // 六大特色弹窗HTML（图片保持原始链接）
+    const sixFeaturesHTML = `
+      <div class="wordcloud-canvas-wrapper"><canvas id="huiWordCloudCanvas" width="760" height="480"></canvas></div>
+      <p style="text-align:center; margin-top:0.2rem; color:var(--gold-dark); font-weight:500;"><i class="fas fa-feather-alt"></i> 水墨徽州 · 建筑词林</p>
+      <div class="feature-grid">
+        <div class="feature-detail"><h4><i class="fas fa-chess-rook"></i> 马头墙 · 五岳朝天</h4><img src="https://b0.bdstatic.com/ugc/JDEdjk5axPBfANeFK_-QDA9f7685d7a8d104f69af82337bbe40713.jpg@h_1280" alt="马头墙"><p><strong>形制：</strong>1-5叠阶梯状，高0.5-1.2m</p><p>防火隔断、瞭望、风水象征</p></div>
+        <div class="feature-detail"><h4><i class="fas fa-archway"></i> 砖雕门楼 · 门第之望</h4><img src="https://pic.rmb.bdstatic.com/bjh/news/4f80727b8e8e7eb2d0da9b3a1218c08c.png" alt="砖雕门楼"><p><strong>工艺：</strong>13道工序，透雕/圆雕</p><p>代表作：百忍图</p></div>
+        <div class="feature-detail"><h4><i class="fas fa-tree"></i> 木雕月梁 · 冬瓜梁</h4><img src="https://pic.rmb.bdstatic.com/bjh/240313/dump/f96df110c50bb7faa7786e3497b82b0a.png@h_1280" alt="木雕月梁"><p>9层镂空，连环套雕，戏曲故事</p></div>
+        <div class="feature-detail"><h4><i class="fas fa-mountain"></i> 石雕柱础 · 础润而雨</h4><img src="https://bkimg.cdn.bcebos.com/pic/ac6eddc451da81cb39db45169f2ac7160924aa189b91" alt="石雕柱础"><p>黟县青，耐候300年+，覆盆式、莲花式</p></div>
+        <div class="feature-detail"><h4><i class="fas fa-water"></i> 天井 · 四水归堂</h4><img src="https://img0.baidu.com/it/u=3656904805,273930683&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500" alt="天井"><p>1:3黄金采光比，肥水不流外人田</p></div>
+        <div class="feature-detail"><h4><i class="fas fa-tint"></i> 水圳系统 · 活水穿村</h4><img src="https://img2.baidu.com/it/u=955279579,108525192&fm=253&app=138&f=JPEG?w=1067&h=800" alt="水圳"><p>九曲十弯，户户通水，古代给排水典范</p></div>
+      </div>
+      <div class="stats-panel" style="margin-top:2rem;"><h4 style="margin:0 0 1rem;color:var(--gold-dark);"><i class="fas fa-tools"></i> 三雕工艺数据可视化</h4><div class="stats-grid"><div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-bar"></i></div><div class="stat-number" style="font-size:1rem;">三雕工时对比</div><div class="chart-container"><canvas id="craftsChart"></canvas></div></div><div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-pie"></i></div><div class="stat-number" style="font-size:1rem;">工艺使用占比</div><div class="pie-chart-wrapper"><canvas id="craftsPieChart"></canvas></div></div><div class="stat-card"><h4 style="margin:0;color:var(--gold-dark);"><i class="fas fa-list-ol"></i> 核心工艺数据</h4><div style="font-size:0.85rem;"><p>✅ 木雕：9层镂空，废刀30+把</p><p>✅ 砖雕：水磨7遍，13道工序</p><p>✅ 石雕：黟县青，耐候300年+</p><p>✅ 榫卯：无钉结构，抗震8级</p></div></div></div></div>
+    `;
+
+    const els = { slider:document.getElementById('museumSlider'), slides:document.querySelectorAll('.slide'), prevSlide:document.getElementById('prevSlide'), nextSlide:document.getElementById('nextSlide'), soulTriggerBtn:document.getElementById('soulTriggerBtn'), dialoguePanel:document.getElementById('stepDialoguePanel'), dialogueText:document.getElementById('dialogueText'), prevStepBtn:document.getElementById('prevStepBtn'), nextStepBtn:document.getElementById('nextStepBtn'), charStudent:document.getElementById('charStudent'), charCraftsman:document.getElementById('charCraftsman'), resetJourneyBtn:document.getElementById('resetJourneyBtn'), navBtns:document.querySelectorAll('.nav-btn'), timelineItems:document.querySelectorAll('.timeline-item[data-page]'), detailDialog:document.getElementById('detailDialog'), detailTitle:document.getElementById('detailTitle'), detailBody:document.getElementById('detailBody'), closeDetailBtn:document.getElementById('closeDetailBtn'), liveRegion:document.getElementById('liveRegion') };
+    let state={slideIndex:0,currentStep:0,isTyping:false,typingTimer:null,autoSlideTimer:null};
+    const dialogueSteps = [{ speaker:'墨斗', text:'“后生，你终于来了。吾乃北宋理田村瓦匠墨斗，这块青砖便是吾当年亲手烧制。”', type:'craftsman' },{ speaker:'林徽衍', text:'“前辈！我……我从小痴迷徽派建筑，原来我的血脉中真的刻着您的记忆？”', type:'student' },{ speaker:'墨斗', text:'“正是。千年轮转，你的前世便是吾之转世。今日相逢，便是要你亲眼见证这方水土的前世今生。”', type:'craftsman' },{ speaker:'林徽衍', text:'“我愿跟随您，走遍李坑的每一处角落，读懂每一道刻痕里的故事！”', type:'student' }];
+    function updateSlide(){ if(els.slider) els.slider.style.transform=`translateX(-${state.slideIndex*100}%)`; }
+    function nextSlide(){ state.slideIndex=(state.slideIndex+1)%els.slides.length; updateSlide(); }
+    function prevSlide(){ state.slideIndex=(state.slideIndex-1+els.slides.length)%els.slides.length; updateSlide(); }
+    function startAutoSlide(){ if(!reduceMotion&&!state.autoSlideTimer) state.autoSlideTimer=setInterval(nextSlide, AUTO_SLIDE_INTERVAL); }
+    function stopAutoSlide(){ if(state.autoSlideTimer) clearInterval(state.autoSlideTimer); state.autoSlideTimer=null; }
+    function highlightSpeaker(type){ els.charStudent?.classList.remove('active-speaker'); els.charCraftsman?.classList.remove('active-speaker'); (type==='student'?els.charStudent:els.charCraftsman)?.classList.add('active-speaker'); }
+    function typeText(text,onDone){ if(!els.dialogueText) return; clearTimeout(state.typingTimer); state.isTyping=true; els.dialogueText.textContent=''; let idx=0; function tick(){ if(idx>=text.length){ state.isTyping=false; onDone?.(); return; } els.dialogueText.textContent+=text.charAt(idx); idx++; state.typingTimer=setTimeout(tick,TYPING_SPEED); } tick(); }
+    function loadStep(stepIdx){ let step=dialogueSteps[stepIdx]; if(!step) return; state.currentStep=stepIdx; highlightSpeaker(step.type); typeText(step.text,()=>{if(els.liveRegion) els.liveRegion.textContent=`${step.speaker}：${step.text}`;}); els.prevStepBtn.disabled=stepIdx===0; els.nextStepBtn.textContent=stepIdx===dialogueSteps.length-1?'完成对话 ✨':'下一句 ▶'; }
+    function openDialogue(){ els.dialoguePanel.classList.add('active'); loadStep(0); showToast('✨ 残砖发出嗡鸣，一位北宋瓦匠的灵魂缓缓浮现……'); }
+    function nextStep(){ if(state.isTyping) return; if(state.currentStep<dialogueSteps.length-1) loadStep(state.currentStep+1); else{ els.dialoguePanel.classList.remove('active'); showToast('🌟 灵魂契合完成！墨斗与林徽衍结下师徒之约。'); } }
+    function prevStep(){ if(!state.isTyping&&state.currentStep>0) loadStep(state.currentStep-1); }
+    function showToast(msg){ let t=document.querySelector('.toast'); if(t) t.remove(); let toast=document.createElement('div'); toast.className='toast'; toast.textContent=msg; document.body.appendChild(toast); setTimeout(()=>toast.classList.add('show'),10); setTimeout(()=>{toast.classList.remove('show'); setTimeout(()=>toast.remove(),300);},TOAST_DURATION); }
+
+    function openDetail(key){
+      if(key==='six-features'){
+        els.detailTitle.textContent='🏯 徽派建筑六大特色 · 水墨词云 & 三雕工艺';
+        els.detailBody.innerHTML=sixFeaturesHTML;
+        els.detailDialog.showModal();
+        // 确保DOM渲染完成再绘制词云和图表
+        setTimeout(() => {
+          const cloudCanvas = document.getElementById('huiWordCloudCanvas');
+          if(cloudCanvas) drawBeautifulWordCloud(cloudCanvas);
+          resetAndInitCharts();  // 柱状图 & 饼图重新初始化
+        }, 120);
+      }
+      else if(key==='vr-ar'){ els.detailTitle.textContent='🥽 VR/AR 沉浸复原'; els.detailBody.innerHTML='<p>数字孪生技术复原北宋李坑全貌，游客戴上VR眼镜即可“穿越”至千年前。</p><img src="https://picsum.photos/id/42/600/400" style="border-radius:1rem;">'; els.detailDialog.showModal(); }
+      else if(key==='old-house'){ els.detailTitle.textContent='🏡 老宅改造·非遗活化'; els.detailBody.innerHTML='<p>古建活化利用为民宿、三雕体验馆，带动2000余名村民增收，古韵新生。</p>'; els.detailDialog.showModal(); }
+      else if(key==='cultural-creative'){ els.detailTitle.textContent='🎨 文创衍生设计'; els.detailBody.innerHTML='<p>瓦当纹书签、马头墙T恤、三雕咖啡杯等潮品，让徽派美学走进日常生活。</p>'; els.detailDialog.showModal(); }
+    }
+    function closeDetail(){ if(els.detailDialog?.open) els.detailDialog.close(); }
+    function scrollToChapter(key){ const map={ museum:'chapter-museum', soul:'chapter-soul', evolution:'chapter-evolution', ming2:'chapter-ming2', modern:'chapter-modern' }; document.getElementById(map[key])?.scrollIntoView({ behavior:reduceMotion?'auto':'smooth', block:'start' }); }
+
+    els.navBtns.forEach(btn=>btn.addEventListener('click',()=>scrollToChapter(btn.dataset.chapter)));
+    els.prevSlide?.addEventListener('click',prevSlide); els.nextSlide?.addEventListener('click',nextSlide);
+    const showcase = document.querySelector('.museum-showcase');
+    if(showcase){ showcase.addEventListener('mouseenter',stopAutoSlide); showcase.addEventListener('mouseleave',startAutoSlide); }
+    els.soulTriggerBtn?.addEventListener('click',openDialogue);
+    els.nextStepBtn?.addEventListener('click',nextStep); els.prevStepBtn?.addEventListener('click',prevStep);
+    els.resetJourneyBtn?.addEventListener('click',()=>{ window.scrollTo({top:0,behavior:'smooth'}); showToast('🕰️ 时空旅程已重置。'); });
+    els.timelineItems.forEach(item=>item.addEventListener('click',()=>openDetail(item.dataset.page)));
+    els.closeDetailBtn?.addEventListener('click',closeDetail);
+    startAutoSlide();
+
+    // ========== 双轴复合图表初始化 ==========
+    const years = ['2010', '2012', '2014', '2016', '2018', '2020', '2022', '2024'];
+    const ancientBuildings = [22000, 24500, 25800, 27100, 28200, 29200, 29800, 30000];
+    const historicBuildings = [620, 1120, 1850, 2650, 3350, 3850, 4020, 4103];
+    const digitalModels = [0, 0, 0, 89, 380, 890, 1520, 1997];
+    const traditionalVillages = [12, 32, 55, 85, 145, 210, 280, 310];
+    const famousTowns = [14, 16, 18, 20, 22, 24, 26, 27];
+
+    function getBarColors(dataLength) {
+      const colors = [];
+      for (let i = 0; i < dataLength; i++) {
+        const hue = 45 - (i / dataLength) * 20;
+        const sat = 70 + (i / dataLength) * 12;
+        const light = 55 - (i / dataLength) * 6;
+        colors.push(`hsl(${hue}, ${sat}%, ${light}%)`);
+      }
+      return colors;
+    }
+
+    // 图表1
+    const ctx1 = document.getElementById('compositeChart1').getContext('2d');
+    new Chart(ctx1, {
+      type: 'bar',
+      data: {
+        labels: years,
+        datasets: [
+          { label: '黄山市域现存徽派古建 (处)', data: ancientBuildings, type: 'bar', yAxisID: 'y-left', backgroundColor: getBarColors(years.length), borderWidth: 1, borderRadius: 6, order: 2 },
+          { label: '历史建筑 (黄山市) / 处', data: historicBuildings, type: 'line', yAxisID: 'y-right', borderColor: '#e67e22', borderWidth: 3, pointBackgroundColor: '#e67e22', pointRadius: 4, tension: 0.2, fill: false, order: 1 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: true,
+        plugins: {
+          tooltip: { backgroundColor: '#1f1a12e6', titleColor: '#f5e6b0', bodyColor: '#fff3cf', borderColor: '#d4af37' },
+          legend: { position: 'top', labels: { color: '#3a2c1c' } }
+        },
+        scales: {
+          'y-left': { position: 'left', title: { display: true, text: '徽派古建数量 (处)', color: '#b48c2c' } },
+          'y-right': { position: 'right', title: { display: true, text: '历史建筑数量 (处)', color: '#e67e22' }, grid: { drawOnChartArea: false } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // 图表2
+    const ctx2 = document.getElementById('compositeChart2').getContext('2d');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: years,
+        datasets: [
+          { label: '完整三维数据模型 (栋)', data: digitalModels, type: 'bar', yAxisID: 'y-left-model', backgroundColor: getBarColors(years.length), borderRadius: 6, order: 3 },
+          { label: '中国传统村落 (个)', data: traditionalVillages, type: 'line', yAxisID: 'y-right-village', borderColor: '#e67e22', borderWidth: 3, pointBackgroundColor: '#e67e22', tension: 0.2, order: 2 },
+          { label: '国家级名城/名镇/名村 (个)', data: famousTowns, type: 'line', yAxisID: 'y-right-village', borderColor: '#c0392b', borderDash: [5,5], borderWidth: 2.5, pointBackgroundColor: '#c0392b', tension: 0.2, order: 1 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: true,
+        plugins: {
+          tooltip: { backgroundColor: '#1f1a12e6', titleColor: '#f5e6b0', bodyColor: '#fff3cf', borderColor: '#d4af37' },
+          legend: { position: 'top', labels: { color: '#3a2c1c' } }
+        },
+        scales: {
+          'y-left-model': { position: 'left', title: { display: true, text: '三维数据模型 (栋)', color: '#b48c2c' } },
+          'y-right-village': { position: 'right', title: { display: true, text: '村落数量 / 名城名镇名村 (个)', color: '#c97e2a' }, grid: { drawOnChartArea: false } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    // ✅ 第五章今世传承图表（仅保留非遗传承人+文创收入）
+    const modernYears = ['2015', '2017', '2019', '2021', '2024'];
+    // 非遗传承人数据
+    const national = [8, 15, 26, 38, 52];
+    const provincial = [12, 22, 35, 48, 65];
+    const city = [25, 38, 52, 66, 82];
+    // 文创收入
+    const culturalIncome = [320, 980, 1860, 3200, 4800];
+
+    // 非遗传承人图表
+    new Chart(document.getElementById('inheritanceChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: modernYears,
+        datasets: [
+          { label: '国家级传承人', data: national, borderColor: '#d4af37', backgroundColor: 'rgba(212,175,55,0.2)', tension: 0.3, fill: true },
+          { label: '省级传承人', data: provincial, borderColor: '#b48c2c', backgroundColor: 'rgba(180,140,44,0.2)', tension: 0.3, fill: true },
+          { label: '市级传承人', data: city, borderColor: '#e8c468', backgroundColor: 'rgba(232,196,104,0.2)', tension: 0.3, fill: true }
+        ]
+      },
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } } }
+    });
+
+    // 文创收入柱状图
+    new Chart(document.getElementById('culturalChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: modernYears,
+        datasets: [{ label: '文创年收入(万元)', data: culturalIncome, backgroundColor: getBarColors(modernYears.length), borderRadius: 6 }]
+      },
+      options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } } }
+    });
+
+    // 粒子背景
+    function initParticles() {
+      const container = document.createElement('div');
+      container.className = 'particles-bg';
+      document.body.appendChild(container);
+      for (let i = 0; i < 48; i++) {
+        const p = document.createElement('div');
+        const size = Math.random()*8+2;
+        p.style.cssText = `position:absolute;width:${size}px;height:${size}px;background:rgba(212,175,55,${Math.random()*0.28+0.05});border-radius:50%;top:${Math.random()*100}%;left:${Math.random()*100}%;animation:floatParticle ${Math.random()*20+12}s linear infinite;animation-delay:${Math.random()*10}s`;
+        container.appendChild(p);
+      }
+    }
+    initParticles();
+  })();
+</script>
+</body>
+</html>
